@@ -9,6 +9,7 @@ const express = require( "express" ),
   LocalStrategy = require( "passport-local" ),
   User = require( "./models/user" );
 //seedDB = require( "./seeds" );
+//seedDB();
 
 const commentRoutes = require( "./routes/comments" ),
   campgroundRoutes = require( "./routes/campgrounds" ),
@@ -24,7 +25,6 @@ app.use( bodyParser.urlencoded( {
 app.set( "view engine", "ejs" );
 
 app.use( express.static( __dirname + "/public" ) );
-//seedDB();
 
 // ============================================================================
 // Passport configuration
