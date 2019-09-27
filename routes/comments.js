@@ -1,4 +1,4 @@
-"strict"
+"strict";
 
 const express = require( "express" ),
   router = express.Router( {
@@ -60,7 +60,7 @@ router.get( "/:comment_id/edit", function ( req, res ) {
 } );
 
 //update comment route
-router.put( ":comment_id", function ( req, res ) {
+router.put( "/:comment_id", function ( req, res ) {
   Comment.findByIdAndUpdate( req.params.comment_id, req.body.comment,
     function ( err, updatedComment ) {
       if ( err ) {
@@ -71,7 +71,7 @@ router.put( ":comment_id", function ( req, res ) {
     } );
 } );
 
-//comment destory route
+//comment destroy route
 router.delete( "/:comment_id", function ( req, res ) {
   Comment.findByIdAndRemove( req.params.comment_id, function ( err ) {
     if ( err ) {
