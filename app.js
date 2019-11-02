@@ -4,11 +4,12 @@ const express = require( "express" ),
   app = express(),
   bodyParser = require( 'body-parser' ),
   mongoose = require( "mongoose" ),
+  flash = require( "connect-flash" ),
   passport = require( "passport" ),
   methodOverride = require( "method-override" ),
   LocalStrategy = require( "passport-local" ),
   User = require( "./models/user" );
-// seedDB = require( "./seeds" );
+//   seedDB = require( "./seeds" );
 // seedDB();
 
 const commentRoutes = require( "./routes/comments" ),
@@ -42,6 +43,7 @@ app.use( function ( req, res, next ) {
   next();
 } );
 app.use( methodOverride( "_method" ) );
+app.use( flash() );
 passport.use( new LocalStrategy( User.authenticate() ) );
 passport.serializeUser( User.serializeUser() );
 passport.deserializeUser( User.deserializeUser() );
