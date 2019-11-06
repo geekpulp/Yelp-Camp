@@ -36,9 +36,7 @@ router.post( "/register", function ( req, res ) {
 
 // show login form
 router.get( "/login", function ( req, res ) {
-  res.render( "login", {
-    message: req.flash( "error" )
-  } );
+  res.render( "login" );
 } );
 
 // handle login logic - This uses the passport middleware to handel the authentication logic
