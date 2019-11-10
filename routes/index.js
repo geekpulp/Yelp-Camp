@@ -18,17 +18,18 @@ router.get( "/register", function ( req, res ) {
   res.render( "register" );
 } );
 
-//handel sign up
+//handle sign up
 router.post( "/register", function ( req, res ) {
   const newUser = new User( {
     username: req.body.username
   } );
   User.register( newUser, req.body.password, function ( err, user ) {
     if ( err ) {
-      console.log( err );
-      return res.render( "register" );
+      req.flash( "error", err.message );
+      return res.redirect( "/register" );
     }
     passport.authenticate( "local" )( req, res, function () {
+      req.flash( "success", "Welcome to YelpCamp " + user.username );
       res.redirect( "/campgrounds" );
     } );
   } );
@@ -48,6 +49,7 @@ router.post( "/login", passport.authenticate( "local", {
 
 router.get( "/logout", function ( req, res ) {
   req.logout();
+  req.flash( "success", "You're now logged out" );
   res.redirect( "/campgrounds" );
 } );
 
@@ -59,12 +61,5 @@ router.get( "/logout", function ( req, res ) {
 router.get( "*", function ( req, res ) {
   res.send( "404 page not found" );
 } );
-
-function isLoggedIn( req, res, next ) {
-  if ( req.isAuthenticated() ) {
-    return next();
-  }
-  res.redirect( "/login" );
-}
 
 module.exports = router;
