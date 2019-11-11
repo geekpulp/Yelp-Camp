@@ -17,7 +17,8 @@ const commentRoutes = require( "./routes/comments" ),
   indexRoutes = require( "./routes/index" );
 
 mongoose.connect( "mongodb://localhost/yelp-camp", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false
 } );
 
 app.use( bodyParser.urlencoded( {
@@ -33,10 +34,12 @@ app.use( express.static( __dirname + "/public" ) );
 
 app.use( require( "express-session" )( {
   secret: "This will be amazing if we let it be",
-  resave: false,
-  saveUnitialized: false
+  resave: true,
+  saveUninitialized: true
 } ) );
+
 app.use( flash() );
+
 app.use( passport.initialize() );
 app.use( passport.session() );
 app.use( function ( req, res, next ) {
