@@ -5,6 +5,19 @@ const express = require( "express" ),
   Campground = require( "../models/campground" ),
   middleware = require( "../middleware" );
 
+// //INDEX - Restful route shows landing page
+// router.get( "/", function ( req, res ) {
+//   Campground.find( {}, function ( error, allCampgrounds ) {
+//     if ( error ) {
+//       console.log( error );
+//     } else {
+//       res.render( "landing", {
+//         campgrounds: allCampgrounds
+//       } );
+//     }
+//   } );
+// } );
+
 //INDEX - Restful route shows all campgrounds
 router.get( "/", function ( req, res ) {
   Campground.find( {}, function ( error, allCampgrounds ) {
