@@ -63,6 +63,6 @@ app.use( "/", indexRoutes );
 
 // Tells express to listen for requests (Start server)
 
-app.listen( 3001, function () {
-  console.log( "The server started on http://localhost:3001/" );
+app.listen( 3002, function () {
+  console.log( "The server started on http://localhost:3002/" );
 } );
