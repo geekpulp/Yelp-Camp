@@ -5,19 +5,6 @@ const express = require( "express" ),
   Campground = require( "../models/campground" ),
   middleware = require( "../middleware" );
 
-// //INDEX - Restful route shows landing page
-// router.get( "/", function ( req, res ) {
-//   Campground.find( {}, function ( error, allCampgrounds ) {
-//     if ( error ) {
-//       console.log( error );
-//     } else {
-//       res.render( "landing", {
-//         campgrounds: allCampgrounds
-//       } );
-//     }
-//   } );
-// } );
-
 //INDEX - Restful route shows all campgrounds
 router.get( "/", function ( req, res ) {
   Campground.find( {}, function ( error, allCampgrounds ) {
@@ -37,6 +24,7 @@ router.post( "/", middleware.isLoggedIn, function ( req, res ) {
   const name = req.body.name;
   const image = req.body.image;
   const description = req.body.description;
+  const price = req.body.price;
   const author = {
     id: req.user._id,
     username: req.user.username
@@ -45,6 +33,7 @@ router.post( "/", middleware.isLoggedIn, function ( req, res ) {
     name: name,
     image: image,
     description: description,
+    price: price,
     author: author
   }
   Campground.create( newCampground, function ( error, newlyCreated ) {
