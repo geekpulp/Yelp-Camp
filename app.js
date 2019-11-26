@@ -4,19 +4,21 @@ const express = require( "express" ),
   app = express(),
   bodyParser = require( 'body-parser' ),
   mongoose = require( "mongoose" ),
+  flash = require( "connect-flash" ),
   passport = require( "passport" ),
   methodOverride = require( "method-override" ),
   LocalStrategy = require( "passport-local" ),
-  User = require( "./models/user" );
-//seedDB = require( "./seeds" );
-//seedDB();
+  User = require( "./models/user" ),
+  seedDB = require( "./seeds" );
+seedDB();
 
 const commentRoutes = require( "./routes/comments" ),
   campgroundRoutes = require( "./routes/campgrounds" ),
   indexRoutes = require( "./routes/index" );
 
 mongoose.connect( "mongodb://localhost/yelp-camp", {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  useFindAndModify: false
 } );
 
 app.use( bodyParser.urlencoded( {
@@ -32,13 +34,18 @@ app.use( express.static( __dirname + "/public" ) );
 
 app.use( require( "express-session" )( {
   secret: "This will be amazing if we let it be",
-  resave: false,
-  saveUnitialized: false
+  resave: true,
+  saveUninitialized: true
 } ) );
+
+app.use( flash() );
+
 app.use( passport.initialize() );
 app.use( passport.session() );
 app.use( function ( req, res, next ) {
   res.locals.currentUser = req.user;
+  res.locals.error = req.flash( "error" );
+  res.locals.success = req.flash( "success" );
   next();
 } );
 app.use( methodOverride( "_method" ) );
@@ -56,6 +63,6 @@ app.use( "/", indexRoutes );
 
 // Tells express to listen for requests (Start server)
 
-app.listen( 3001, function () {
-  console.log( "The server started on http://localhost:3001/" );
+app.listen( 3002, function () {
+  console.log( "The server started on http://localhost:3002/" );
 } );

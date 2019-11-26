@@ -5,8 +5,8 @@ const express = require( "express" ),
   passport = require( "passport" ),
   User = require( "../models/user" );
 
-router.get( "/", function( req, res ) {
-  res.redirect( "/campgrounds" );
+router.get( "/", function ( req, res ) {
+  res.render( "landing" );
 } );
 
 // ========================================================================
@@ -14,28 +14,29 @@ router.get( "/", function( req, res ) {
 // ========================================================================
 
 //show reg form
-router.get( "/register", function( req, res ) {
+router.get( "/register", function ( req, res ) {
   res.render( "register" );
 } );
 
-//handel sign up
-router.post( "/register", function( req, res ) {
+//handle sign up
+router.post( "/register", function ( req, res ) {
   const newUser = new User( {
     username: req.body.username
   } );
-  User.register( newUser, req.body.password, function( err, user ) {
+  User.register( newUser, req.body.password, function ( err, user ) {
     if ( err ) {
-      console.log( err );
-      return res.render( "register" );
+      req.flash( "error", err.message );
+      return res.redirect( "/register" );
     }
-    passport.authenticate( "local" )( req, res, function() {
+    passport.authenticate( "local" )( req, res, function () {
+      req.flash( "success", "Welcome to YelpCamp " + user.username );
       res.redirect( "/campgrounds" );
     } );
   } );
 } );
 
 // show login form
-router.get( "/login", function( req, res ) {
+router.get( "/login", function ( req, res ) {
   res.render( "login" );
 } );
 
@@ -43,11 +44,12 @@ router.get( "/login", function( req, res ) {
 router.post( "/login", passport.authenticate( "local", {
   successRedirect: "/campgrounds",
   failureRedirect: "/login"
-} ), function( req, res ) {} );
+} ), function ( req, res ) {} );
 
 
-router.get( "/logout", function( req, res ) {
+router.get( "/logout", function ( req, res ) {
   req.logout();
+  req.flash( "success", "You're now logged out" );
   res.redirect( "/campgrounds" );
 } );
 
@@ -56,15 +58,8 @@ router.get( "/logout", function( req, res ) {
 // ============================================================================
 
 
-router.get( "*", function( req, res ) {
+router.get( "*", function ( req, res ) {
   res.send( "404 page not found" );
 } );
-
-function isLoggedIn( req, res, next ) {
-  if ( req.isAuthenticated() ) {
-    return next();
-  }
-  res.redirect( "/login" );
-}
 
 module.exports = router;
