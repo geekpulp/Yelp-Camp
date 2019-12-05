@@ -63,7 +63,7 @@ app.use( "/", indexRoutes );
 
 // Tells express to listen for requests (Start server)
 
-app.listen( process.env.PORT, process.env.IP
+app.listen( process.env.PORT, process.env.IP,
   function () {
     console.log( "The YelpCamp server started" );
   } );
