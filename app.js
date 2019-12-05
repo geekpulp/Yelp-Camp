@@ -63,6 +63,7 @@ app.use( "/", indexRoutes );
 
 // Tells express to listen for requests (Start server)
 
-app.listen( 3002, function () {
-  console.log( "The server started on http://localhost:3002/" );
-} );
+app.listen( process.env.PORT, process.env.IP
+  function () {
+    console.log( "The YelpCamp server started" );
+  } );
