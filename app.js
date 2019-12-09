@@ -8,9 +8,9 @@ const express = require( "express" ),
   passport = require( "passport" ),
   methodOverride = require( "method-override" ),
   LocalStrategy = require( "passport-local" ),
-  User = require( "./models/user" ),
-  seedDB = require( "./seeds" );
-seedDB();
+  User = require( "./models/user" );
+//   seedDB = require( "./seeds" );
+// seedDB();
 
 const commentRoutes = require( "./routes/comments" ),
   campgroundRoutes = require( "./routes/campgrounds" ),
