@@ -24,11 +24,6 @@ mongoose.connect( process.env.DATABASEURL, {
   useFindAndModify: false
 } );
 
-// mongoose.connect( "mongodb+srv://geekpulp:CGQuV!Divtce74YeWx7P@cluster0-tklpy.mongodb.net/test?retryWrites=true&w=majority", {
-//   useNewUrlParser: true,
-//   useFindAndModify: false
-// } );
-
 app.use( bodyParser.urlencoded( {
   extended: true
 } ) );
