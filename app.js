@@ -17,9 +17,9 @@ const commentRoutes = require( "./routes/comments" ),
   indexRoutes = require( "./routes/index" );
 
 
-console.log( process.env.DATABASE );
+console.log( process.env.DATABASEURL );
 
-mongoose.connect( process.env.DATABASE, {
+mongoose.connect( process.env.DATABASEURL, {
   useNewUrlParser: true,
   useFindAndModify: false
 } );
